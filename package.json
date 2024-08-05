@@ -70,7 +70,8 @@
       "<rootDir>/apps/"
     ],
     "moduleNameMapper": {
-      "^@app/shared(|/.*)$": "<rootDir>/libs/shared/src/$1"
+      "^@app/shared(|/.*)$": "<rootDir>/libs/shared/src/$1",
+      "^@app/kong(|/.*)$": "<rootDir>/libs/kong/src/$1"
     }
   }
 }

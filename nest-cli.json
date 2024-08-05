@@ -17,6 +17,15 @@
         "tsConfigPath": "libs/shared/tsconfig.lib.json"
       }
     },
+    "kong": {
+      "type": "library",
+      "root": "libs/kong",
+      "entryFile": "index",
+      "sourceRoot": "libs/kong/src",
+      "compilerOptions": {
+        "tsConfigPath": "libs/kong/tsconfig.lib.json"
+      }
+    },
     "api": {
       "type": "application",
       "root": "apps/api",

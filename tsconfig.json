@@ -18,14 +18,27 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@app/shared": ["libs/shared/src"],
-      "@app/shared/*": ["libs/shared/src/*"]
+      "@app/shared": [
+        "libs/shared/src"
+      ],
+      "@app/shared/*": [
+        "libs/shared/src/*"
+      ],
+      "@app/kong": [
+        "libs/kong/src"
+      ],
+      "@app/kong/*": [
+        "libs/kong/src/*"
+      ]
     }
   },
-  "include": ["apps/**/*", "libs/**/*"],
+  "include": [
+    "apps/**/*",
+    "libs/**/*"
+  ],
   "exclude": [
     "node_modules",
     "dist",
-    "**/*.spec.ts" // 排除所有测试文件
+    "**/*.spec.ts"
   ]
 }
