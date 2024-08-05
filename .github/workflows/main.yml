@@ -18,15 +18,19 @@ jobs:
       - name: 登陆阿里云镜像仓库
         run: |
           docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }} registry.cn-wulanchabu.aliyuncs.com
-      - name: 制作镜像并推送到镜像仓库
+      - name: 安装依赖包和代码检查
         run: |
           yarn
           yarn run lint
           VERSION=$(jq -r '.version' package.json)
-          echo "项目版本号：${{ env.VERSION }}"
+          echo "项目版本号: $VERSION"
+      - name: 制作后端项目镜像并推送到镜像仓库
+        run: |
           yarn run build api
-          docker build -t registry.cn-wulanchabu.aliyuncs.com/marbleqi/api:${{ env.VERSION }} -f apps/api/Dockerfile .
-          docker push registry.cn-wulanchabu.aliyuncs.com/marbleqi/api:${{ env.VERSION }}
+          docker build -t registry.cn-wulanchabu.aliyuncs.com/marbleqi/api:$VERSION -f apps/api/Dockerfile .
+          docker push registry.cn-wulanchabu.aliyuncs.com/marbleqi/api:$VERSION
+      - name: 制作定时任务镜像并推送到镜像仓库
+        run: |
           yarn run build job
-          docker build -t registry.cn-wulanchabu.aliyuncs.com/marbleqi/job:${{ env.VERSION }} -f apps/job/Dockerfile .
-          docker push registry.cn-wulanchabu.aliyuncs.com/marbleqi/job:${{ env.VERSION }}
+          docker build -t registry.cn-wulanchabu.aliyuncs.com/marbleqi/job:$VERSION -f apps/job/Dockerfile .
+          docker push registry.cn-wulanchabu.aliyuncs.com/marbleqi/job:$VERSION
