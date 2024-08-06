@@ -18,16 +18,16 @@
     "forceConsistentCasingInFileNames": false,
     "noFallthroughCasesInSwitch": false,
     "paths": {
-      "@app/shared": [
+      "@libs/shared": [
         "libs/shared/src"
       ],
-      "@app/shared/*": [
+      "@libs/shared/*": [
         "libs/shared/src/*"
       ],
-      "@app/kong": [
+      "@libs/kong": [
         "libs/kong/src"
       ],
-      "@app/kong/*": [
+      "@libs/kong/*": [
         "libs/kong/src/*"
       ]
     }

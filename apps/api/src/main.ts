@@ -5,6 +5,7 @@ import * as path from 'path';
 import { json } from 'body-parser';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 // 内部依赖
+import { SharedModule, ReqInterceptor } from '@libs/shared';
 import { AppModule } from './app.module';
 
 /**项目启动函数 */
@@ -22,7 +23,7 @@ async function bootstrap() {
   const packageJson = JSON.parse(packageJsonContent);
   const version = packageJson.version;
   console.log('当前版本号:', version);
-  if (process.env.NODE_ENV && process.env.NODE_ENV === 'development') {
+  if (process.env.NODE_ENV && process.env.NODE_ENV === 'dev') {
     SwaggerModule.setup(
       'swagger',
       app,

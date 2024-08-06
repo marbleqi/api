@@ -32,3 +32,5 @@ export * from './operate/operate.pipe';
 export * from './req/req.interceptor';
 // 导入控制器
 export * from './common/common.controller';
+// 导入模块
+export * from './shared.module';
