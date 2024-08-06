@@ -9,7 +9,6 @@ async function bootstrap() {
   const app = await NestFactory.createApplicationContext(AppModule);
   // 激活终止信号侦听器
   app.enableShutdownHooks();
-  process.on('warning', (e) => console.warn(e.stack));
   console.log('job应用启动完成');
   console.log('环境变量', process.env);
 }
