@@ -23,12 +23,6 @@
       ],
       "@libs/shared/*": [
         "libs/shared/src/*"
-      ],
-      "@libs/kong": [
-        "libs/kong/src"
-      ],
-      "@libs/kong/*": [
-        "libs/kong/src/*"
       ]
     }
   },

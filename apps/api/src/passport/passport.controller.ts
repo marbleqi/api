@@ -24,17 +24,17 @@ import {
 } from '@nestjs/swagger';
 
 // 内部依赖
+import { SettingEntity, RedisService, SettingService } from '@libs/shared';
 import { Token, UserService, TokenService } from '../auth';
 import { SettingDto } from '../system';
-import { PassportService } from '.';
 
 @Controller('passport')
 @ApiTags('身份认证')
 export class PassportController {
   constructor(
+    private readonly settingSrv: SettingService,
     private readonly userSrv: UserService,
     private readonly tokenSrv: TokenService,
-    private readonly passportSrv: PassportService,
   ) {}
 
   /**
@@ -45,11 +45,9 @@ export class PassportController {
   @Get('startup')
   @ApiOperation({ summary: '应用初始化' })
   @ApiOkResponse({ description: '应用初始化', type: SettingDto })
-  async startup(
-    @Headers('token') tokenStr: string,
-    @Res() res: Response,
-  ): Promise<void> {
-    res.locals.result = await this.passportSrv.startup();
+  startup(@Res() res: Response): void {
+    const system: SettingEntity = this.settingSrv.get('system');
+    res.locals.result = system.value;
   }
 
   /**

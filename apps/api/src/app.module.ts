@@ -9,6 +9,7 @@ import { AuthModule, TokenGuard } from './auth';
 import { SystemModule } from './system';
 import { PassportModule } from './passport';
 import { AccountModule } from './account';
+import { KongModule } from './kong';
 
 /**根模块 */
 @Module({
@@ -54,6 +55,7 @@ import { AccountModule } from './account';
     SystemModule,
     PassportModule,
     AccountModule,
+    KongModule,
   ],
   providers: [
     // 全局守卫
