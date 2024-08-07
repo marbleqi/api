@@ -2,8 +2,10 @@
 import {
   Controller,
   Get,
+  Post,
   Headers,
   Query,
+  Body,
   Res,
   UnauthorizedException,
 } from '@nestjs/common';
@@ -17,6 +19,9 @@ import {
 } from '@nestjs/swagger';
 // 内部依赖
 import {
+  Operate,
+  Name,
+  UpdateEntity,
   SettingEntity,
   SettingService,
   OperatePipe,
@@ -141,5 +146,33 @@ export class AccountController extends CommonController {
       name: user.name,
       operateId: user.update.operateId,
     }));
+  }
+
+  /**
+   * 获取用户
+   * @param res 响应上下文
+   */
+  @Post('secure')
+  @ApiOperation({ summary: '修改密码' })
+  @Name('account/user')
+  @Operate('secure')
+  async secure(
+    @Body('oldpsw') oldpsw: string,
+    @Body('newpsw') newpsw: string,
+    @Res() res: Response,
+  ): Promise<void> {
+    console.debug(
+      '修改密码相关数据',
+      res.locals.userId,
+      oldpsw,
+      newpsw,
+      res.locals,
+    );
+    res.locals.result = await this.userSrv.secure(
+      res.locals.userId,
+      oldpsw,
+      newpsw,
+      res.locals.update as UpdateEntity,
+    );
   }
 }
