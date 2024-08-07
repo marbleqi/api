@@ -105,6 +105,10 @@ export class UserService extends CommonService<UserEntity, UserLogEntity> {
     }
   }
 
+  async index(operateId: number = 0): Promise<any[]> {
+    const users = await super.index(operateId);
+    return users.map((user) => ({ ...user }));
+  }
   /**
    * 获取用户详情
    * @param id 用户ID
@@ -154,6 +158,15 @@ export class UserService extends CommonService<UserEntity, UserLogEntity> {
       .list()
       .filter((role) => this.get(id).roles.includes(role.id))
       .reduce((prev, role) => prev.concat(role.abilities), []);
+  }
+
+  /**
+   * 获取用户姓名
+   * @param id 用户ID
+   * @returns 用户姓名
+   */
+  name(id: number): string {
+    return this.get(id).name;
   }
 
   /**

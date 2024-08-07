@@ -1,5 +1,5 @@
 // 外部依赖
-import { Injectable, OnApplicationBootstrap } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 // 内部依赖
 import { Ability, AbilityService } from '../auth';
 
@@ -12,9 +12,7 @@ export class SystemService {
    * @param abilitySrv 权限点服务
    * @param menuService 菜单服务
    */
-  constructor(
-    private readonly abilitySrv: AbilityService, // private readonly menuService: MenuService,
-  ) {
+  constructor(private readonly abilitySrv: AbilityService) {
     /**通用配置信息 */
     const common = { pid: 200, moduleName: '系统', type: '对象' };
     this.abilitySrv.add({
@@ -39,12 +37,5 @@ export class SystemService {
           }) as Ability,
       ),
     );
-  }
-
-  /**启动初始化 */
-  async onApplicationBootstrap() {
-    /**访问控制模块主菜单 */
-    // const authMenu = await this.menuService.get('auth');
-    // console.debug('authMenu', authMenu);
   }
 }

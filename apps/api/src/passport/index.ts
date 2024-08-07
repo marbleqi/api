@@ -5,3 +5,6 @@ export * from './passport.service';
 
 // 导入控制器
 export * from './passport.controller';
+
+// 导入模块
+export * from './passport.module';

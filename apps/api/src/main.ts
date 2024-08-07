@@ -23,6 +23,7 @@ async function bootstrap() {
   const packageJson = JSON.parse(packageJsonContent);
   const version = packageJson.version;
   console.log('当前版本号:', version);
+  console.log('环境变量', process.env);
   if (process.env.NODE_ENV && process.env.NODE_ENV === 'dev') {
     SwaggerModule.setup(
       'swagger',
@@ -38,8 +39,8 @@ async function bootstrap() {
     );
   }
   // 开启服务监听
-  await app.listen(parseInt(process.env.PORT, 10) || 80);
-  console.log('管理平台后端应用启动完成');
-  console.log('环境变量', process.env);
+  const port = parseInt(process.env.PORT, 10) || 80;
+  await app.listen(port);
+  console.log('管理平台后端应用启动完成，服务端口', port);
 }
 bootstrap();

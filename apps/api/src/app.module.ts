@@ -5,11 +5,12 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 // 内部依赖
 import { SharedModule, ReqInterceptor } from '@libs/shared';
-import { TokenGuard } from './auth';
-import { AuthModule } from './auth/auth.module';
-import { SystemModule } from './system/system.module';
-import { PassportModule } from './passport/passport.module';
+import { AuthModule, TokenGuard } from './auth';
+import { SystemModule } from './system';
+import { PassportModule } from './passport';
+import { AccountModule } from './account';
 
+/**根模块 */
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -52,10 +53,14 @@ import { PassportModule } from './passport/passport.module';
     AuthModule,
     SystemModule,
     PassportModule,
+    AccountModule,
   ],
   providers: [
+    // 全局守卫
     { provide: APP_GUARD, useClass: TokenGuard },
+    // 全局管道
     { provide: APP_PIPE, useClass: ValidationPipe },
+    // 全局拦截器
     { provide: APP_INTERCEPTOR, useClass: ReqInterceptor },
   ],
 })

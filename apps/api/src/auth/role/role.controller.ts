@@ -86,6 +86,7 @@ export class RoleController extends CommonController {
    * @param res 响应上下文
    */
   @Get('index')
+  @ApiOperation({ summary: '获取角色清单' })
   @Abilities(141)
   private async index(
     @Query('operateId', OperatePipe) operateId: number,
@@ -100,6 +101,7 @@ export class RoleController extends CommonController {
    * @param res 响应上下文
    */
   @Get('list')
+  @ApiOperation({ summary: '获取角色清单' })
   @Abilities(141)
   private list(
     @Query('operateId', OperatePipe) operateId: number,

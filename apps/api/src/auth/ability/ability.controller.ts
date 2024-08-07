@@ -19,13 +19,7 @@ import {
 } from '@nestjs/swagger';
 // 内部依赖
 import { Operate, Name, UpdateEntity, CommonController } from '@libs/shared';
-import {
-  Ability,
-  Abilities,
-  AbilityService,
-  MenuService,
-  RoleService,
-} from '..';
+import { Ability, Abilities, AbilityService, RoleService } from '..';
 
 /**权限点控制器 */
 @Controller('auth/ability')
@@ -39,7 +33,6 @@ export class AbilityController extends CommonController {
    */
   constructor(
     private readonly abilitySrv: AbilityService,
-    private readonly menuSrv: MenuService,
     private readonly roleSrv: RoleService,
   ) {
     super();
@@ -84,42 +77,6 @@ export class AbilityController extends CommonController {
   @Abilities(112)
   private show(@Param('id', ParseIntPipe) id: number, @Res() res: Response) {
     res.locals.result = this.abilitySrv.show(id);
-  }
-
-  /**
-   * 批量调整拥有某权限点的菜单
-   * @param ids 菜单ID数组
-   * @param id 权限点ID
-   * @param res 响应上下文
-   */
-  @Post('menu/:id')
-  @ApiOperation({ summary: '批量调整拥有某权限点的菜单' })
-  @ApiParam({ name: 'id', description: '权限点ID', example: 100 })
-  @ApiBody({
-    schema: {
-      type: 'array',
-      items: { type: 'number' },
-      example: [1, 2, 3],
-      description: '授权的菜单ID数组',
-    },
-  })
-  @ApiOkResponse({
-    description: '批量调整菜单权限点成功',
-    schema: { type: 'number', example: 5, description: '更新菜单记录数' },
-  })
-  @Abilities(125)
-  @Name('auth/menu')
-  @Operate('ability')
-  private async menu(
-    @Body(ParseArrayPipe) ids: number[],
-    @Param('id', ParseIntPipe) id: number,
-    @Res() res: Response,
-  ) {
-    res.locals.result = await this.menuSrv.grant(
-      ids,
-      id,
-      res.locals.update as UpdateEntity,
-    );
   }
 
   /**

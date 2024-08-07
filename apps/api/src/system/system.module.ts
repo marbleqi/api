@@ -2,7 +2,7 @@
 import { Module } from '@nestjs/common';
 // 内部依赖
 import { SharedModule } from '@libs/shared';
-import { AuthModule } from '../auth/auth.module';
+import { AuthModule } from '../auth';
 import {
   SystemService,
   SettingController,
